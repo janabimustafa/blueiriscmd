@@ -15,7 +15,8 @@ def get_signal():
 @app.route("/signal", methods=['POST'])
 def set_signal():
     blueIris = BlueIris(host, user, password, debug=True)
-    body = request.json
+    data = request.get_data()
+    body = json.loads(data)
     signal = body['signal']
     blueIris.set_signal(signal)
     return get_signal()
