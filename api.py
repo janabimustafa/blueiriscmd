@@ -7,12 +7,14 @@ app = Flask(__name__)
 host = '{}:{}'.format(os.environ['BI_HOST'], os.environ['BI_PORT'])
 user = os.environ['BI_USER']
 password = os.environ['BI_PASSWORD']
-blueIris = BlueIris(host, user, password)
+
 @app.route("/signal", methods=['GET'])
 def get_signal():
+    blueIris = BlueIris(host, user, password, debug=True)
     return jsonify({'signal': blueIris.get_signal()})
 @app.route("/signal", methods=['POST'])
 def set_signal():
+    blueIris = BlueIris(host, user, password, debug=True)
     body = request.json
     signal = body['signal']
     blueIris.set_signal(signal)
